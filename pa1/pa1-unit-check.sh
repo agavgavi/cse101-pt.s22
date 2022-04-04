@@ -21,7 +21,7 @@ echo ""
 echo ""
 
 gcc -c -std=c17 -Wall -g ModelListTest.c List.c
-gcc -o -std=c17 ModelListTest ModelListTest.o List.o
+gcc -std=c17 -o ModelListTest ModelListTest.o List.o
 
 timeout 5 valgrind --leak-check=full -v ./ModelListTest -v > ListTest-out.txt 2> ListTest-mem.txt
 
