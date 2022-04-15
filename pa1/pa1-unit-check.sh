@@ -24,6 +24,9 @@ gcc -c -std=c17 -Wall -g ModelListTest.c List.c
 gcc -std=c17 -o ModelListTest ModelListTest.o List.o
 
 timeout 5 valgrind --leak-check=full -v ./ModelListTest -v > ListTest-out.txt 2> ListTest-mem.txt
+if [ $? -eq 124 ]; then
+    echo -e "${RED} ModelListTest TEST TIMED OUT ${NC}"
+fi
 
 cat ListTest-out.txt
 
