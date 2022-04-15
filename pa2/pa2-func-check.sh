@@ -36,6 +36,9 @@ read verbose
 for NUM in $(seq 1 $NUMTESTS); do
   rm -f outfile$NUM.txt
   timeout 5 ./FindPath infile$NUM.txt outfile$NUM.txt &> garbage >> garbage #all stdout/stderr thrown away
+  if [ $? -eq 124 ]; then
+    echo -e "${RED} FindPath TEST TIMED OUT ${NC}"
+  fi
   diff -bBwu outfile$NUM.txt model-outfile$NUM.txt > diff$NUM.txt &>> diff$NUM.txt
   echo "FindPath Test $NUM:"
   echo "=========="

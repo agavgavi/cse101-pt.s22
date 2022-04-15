@@ -18,6 +18,9 @@ gcc -c -std=c17 -Wall -g ModelListTest.c List.c
 gcc -o ModelListTest ModelListTest.o List.o
 
 timeout 5 ./ModelListTest -v
+if [ $? -eq 124 ]; then
+    echo -e "${RED} ModelListTest TEST TIMED OUT ${NC}"
+fi
 
 echo ""
 echo ""
