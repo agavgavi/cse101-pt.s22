@@ -1,6 +1,10 @@
 #!/usr/bin/bash
 
-SRCDIR=https://raw.githubusercontent.com/agavgavi/cse101-pt.s22/master/pa3
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+EXEC=FindComponents
 
 if [ ! -e backup ]; then
   mkdir backup
@@ -12,28 +16,29 @@ cp *.c *.h Makefile backup   # copy all files of importance into backup
 echo ""
 echo ""
 
-rm -f *.o FindComponents
+rm -f *.o $EXEC
 
 make
 
-if [ ! -e FindComponents ] || [ ! -x FindComponents ]; then # exist and executable
+if [ ! -e $EXEC ] || [ ! -x $EXEC ]; then # exist and executable
   echo ""
-  echo "Makefile probably doesn't correctly create Executable!!!"
+  echo -e "${RED}Makefile probably doesn't correctly create Executable!!!${NC}"
   echo ""
 else
   echo ""
-  echo "Makefile probably correctly creates Executable!"
+  echo -e "${GREEN}Makefile probably correctly creates Executable!${NC}"
   echo ""
 fi
 
-echo ""
-echo ""
-
 make clean
 
-if [ -e FindComponents ] || [ -e *.o ]; then
-  echo "WARNING: Makefile didn't successfully clean all files"
+echo ""
+echo ""
+
+
+if [ -e $EXEC ] || [ -e *.o ]; then
+   echo -e "${RED}WARNING: Makefile didn't successfully clean all files${NC}"
 fi
 
-rm -f *.o FindComponents garbage
+rm -f *.o $EXEC garbage
 

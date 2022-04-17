@@ -6,6 +6,10 @@ PNTSPERTEST=3
 let MAXPTS=$NUMTESTS*$PNTSPERTEST
 let MAXPTS=20
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 if [ ! -e backup ]; then
   mkdir backup
 fi
