@@ -336,12 +336,13 @@ int main(int argc, char **argv) {
       freeList(&L);
     }
     if (argc == 2) { // it's verbose mode
-      printf("Test %s %s", testName(i), testStatus == 0 ? "PASSED" : "FAILED");
+      printf("Test %s: %s", testName(i),
+             testStatus == 0 ? GREEN "PASSED" NC : RED "FAILED" NC);
       if (testStatus == 255) {
         printf(": due to a %s\n", fail_type == 1   ? "segfault"
                                   : fail_type == 2 ? "program exit"
                                                    : "program interruption");
-        printf("\nWARNING: Program will now stop running tests\n\n");
+        printf(RED "\nWARNING: Program will now stop running tests\n\n" NC);
         break;
 
       } else if (testStatus == 254) {
@@ -361,13 +362,12 @@ int main(int argc, char **argv) {
 
   uint8_t totalScore = (MAXSCORE - NUM_TESTS * 5) + testsPassed * 5;
 
-  if (argc == 2) {
-    if (testStatus == 255) {
-      totalScore = 10;
-      printf("\nYou will recieve charity points due to a program crash\n");
-    } else {
-      printf("\nYou passed %d out of %d tests\n", testsPassed, NUM_TESTS);
-    }
+  if (argc == 2 && testStatus != 255)
+    printf("\nYou passed %d out of %d tests\n", testsPassed, NUM_TESTS);
+  else if (testStatus == 255) {
+    totalScore = CHARITY; // charity points
+    if (argc == 2)
+      printf(RED "Receiving charity points because your program crashes\n" NC);
   }
   printf("\nYou will receive %d out of %d possible points on the GraphTest\n\n",
          totalScore, MAXSCORE);
