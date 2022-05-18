@@ -36,7 +36,7 @@ if [ -e Arithmetic ] || [ -e *.o ]; then
     echo -e "${RED}WARNING: Makefile didn't successfully clean all files${NC}"
 fi
 
-case `grep -Ei '(power = 9|p 9|power 9|p = 9)' BigInteger.* > /dev/null; echo $?` in
+case `grep -Ei '(power[[:blank:]]+9|p[[:blank:]]+9|power[[:blank:]]*=[[:blank:]]*9|p[[:blank:]]*=[[:blank:]]*9)' BigInteger.* > /dev/null; echo $?` in
   0)
     ;;
   1)
