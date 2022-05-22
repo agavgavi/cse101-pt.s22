@@ -1,0 +1,26 @@
+bushy : 1
+coccidae : 4
+cocknified : 8
+colander : 12
+infamonising : 2
+negativeness : 3
+newsrooms : 5
+reformers : 10
+roommates : 9
+steens : 7
+stultify : 6
+synonymize : 11
+
+bushy
+infamonising
+coccidae
+cocknified
+colander
+negativeness
+newsrooms
+stultify
+steens
+roommates
+reformers
+synonymize
+
