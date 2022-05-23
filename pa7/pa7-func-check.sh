@@ -1,4 +1,9 @@
 #!/usr/bin/bash
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+MAXTIME=10
 
 SRCDIR=https://raw.githubusercontent.com/agavgavi/cse101-pt.s22/master/pa7
 NUMTESTS=5
@@ -31,16 +36,21 @@ echo "Press enter to continue"
 read verbose
 for NUM in $(seq 1 $NUMTESTS); do
   rm -f outfile$NUM.txt
-  timeout 10 valgrind --leak-check=full -v ./Order infile$NUM.txt outfile$NUM.txt &> valgrind-out$NUM.txt
+  timeout 20 /usr/bin/time -po time$NUM.txt valgrind --leak-check=full -v ./Order infile$NUM.txt outfile$NUM.txt &> valgrind-out$NUM.txt 
   if [ $? -eq 124 ]; then
-    echo -e "${RED} ORDER TEST TIMED OUT ${NC}"
+    echo -e "${RED}ORDER TEST TIMED OUT ${NC}"
   fi
+  userTime=`perl -ane 'print $F[1] if $F[0] eq "user"' time$NUM.txt`
+  tooSlow=$(echo "$userTime > $MAXTIME" |bc -l)
   diff -bBwu outfile$NUM.txt model-outfile$NUM.txt &> diff$NUM.txt >> diff$NUM.txt
   echo "Order Test $NUM:"
   echo "=========="
   cat diff$NUM.txt
+  if (( $tooSlow )); then
+    echo -e "${RED}ORDER TEST TIMED OUT (Slower than $MAXTIME) ${NC}"
+  fi
   echo "=========="
-  if [ -e diff$NUM.txt ] && [[ ! -s diff$NUM.txt ]]; then
+  if [ -e diff$NUM.txt ] && [[ ! -s diff$NUM.txt ]] && [[ $tooSlow -eq 0 ]]; then
     let ordertestspassed+=1
   fi
 done
@@ -66,5 +76,5 @@ done
 
 echo ""
 echo ""
-rm -f *.o Order infile*.txt model-outfile*.txt valgrind-out*.txt diff*.txt outfile*.txt
+rm -f *.o Order infile*.txt model-outfile*.txt valgrind-out*.txt diff*.txt outfile*.txt time*.txt
 
