@@ -76,5 +76,5 @@ done
 
 echo ""
 echo ""
-rm -f *.o Order infile*.txt model-outfile*.txt valgrind-out*.txt diff*.txt outfile*.txt time*.txt
+rm -f *.o Order
 
