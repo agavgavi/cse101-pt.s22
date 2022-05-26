@@ -50,8 +50,8 @@ for NUM in $(seq 1 $NUMTESTS); do
   echo "Sparse Test $NUM:"
   echo "=========="
   cat diff$NUM.txt
-  if [[ $tooSlow ]] || [[ $t -eq 124 ]]; then
-    echo -e "${RED}SPARSE TEST TIMED OUT (Slower than $MAXTIME) ${NC}"
+  if [[ $tooSlow -e 1 ]] || [[ $t -eq 124 ]]; then
+    echo -e "${RED}SPARSE TEST TIMED OUT (Slower than $RUNTIME) ${NC}"
   fi
   echo "=========="
   if [ -e diff$NUM.txt ] && [[ ! -s diff$NUM.txt ]] && [[ $tooSlow -eq 0 ]] && [[ ! $t -eq 124 ]]; then # increment number of tests passed counter
