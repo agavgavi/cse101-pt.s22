@@ -8,15 +8,26 @@ echo ""
 echo "press Enter for make tests"
 read garbage
 
-make
+make WordFrequency
+make Order
 
 if [ ! -e Order ] || [ ! -x Order ]; then # exist and executable
   echo ""
-  echo -e "${RED}Makefile probably doesn't correctly create Executable!!!${NC}"
+  echo -e "${RED}Makefile probably doesn't correctly create Order!!${NC}"
   echo ""
 else
   echo ""
-  echo -e "${GREEN}Makefile probably correctly creates Executable!${NC}"
+  echo -e "${GREEN}Makefile probably correctly creates Order!${NC}"
+  echo ""
+fi
+
+if [ ! -e WordFrequency ] || [ ! -x WordFrequency ]; then # exist and executable
+  echo ""
+  echo -e "${RED}Makefile probably doesn't correctly create WordFrequency!!${NC}"
+  echo ""
+else
+  echo ""
+  echo -e "${GREEN}Makefile probably correctly creates WordFrequency!${NC}"
   echo ""
 fi
 

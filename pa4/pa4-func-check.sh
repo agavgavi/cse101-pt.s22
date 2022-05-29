@@ -50,7 +50,7 @@ for NUM in $(seq 1 $NUMTESTS); do
   echo "Sparse Test $NUM:"
   echo "=========="
   cat diff$NUM.txt
-  if [[ $tooSlow -e 1 ]] || [[ $t -eq 124 ]]; then
+  if [[ $tooSlow -eq 1 ]] || [[ $t -eq 124 ]]; then
     echo -e "${RED}SPARSE TEST TIMED OUT (Slower than $RUNTIME) ${NC}"
   fi
   echo "=========="
