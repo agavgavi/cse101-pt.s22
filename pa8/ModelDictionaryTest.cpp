@@ -268,6 +268,9 @@ uint8_t runTest(Dictionary *pA, Dictionary *pB, int test) {
     return 0;
   }
   case Remove_value: {
+    string ideal1 = "d\nb\nc\nf\ne\ng\n";
+    string ideal2 = "e\nb\nc\nf\ng\n";
+    string ideal3 = "e\nb\nc\nf\n";
     A.setValue("d", 1);
     A.setValue("b", 5);
     A.setValue("a", 10);
@@ -279,13 +282,19 @@ uint8_t runTest(Dictionary *pA, Dictionary *pB, int test) {
     A.remove("a");
     if (A.hasCurrent())
       return 1;
+    if (A.pre_string() != ideal1)
+      return 12;
     A.end();
     A.remove("d");
     if (A.currentKey() != "g" || A.currentVal() != 30)
       return 2;
+    if (A.pre_string() != ideal2)
+      return 22;
     A.remove("g");
     if (A.hasCurrent())
       return 3;
+    if (A.pre_string() != ideal3)
+      return 32;
     return 0;
   }
   case GetValue_value: {
